@@ -1658,129 +1658,21 @@ static struct i2c_board_info __initdata msm_i2c_sensor_gsbi12_info[] = {
   */
 };
 
-static struct cm3629_platform_data cm36282_TMO_EN1_pdata = {
-	.model = CAPELLA_CM36282,
-	.ps_select = CM3629_PS1_ONLY,
-	.intr = PM8921_GPIO_PM_TO_SYS(VALENTE_WX_PMGPIO_PROXIMITY_INTz),
-	.levels = { 8, 10, 12, 19, 283, 3094, 5313, 7847, 10383, 65535},
-	.golden_adc = 3857,
-	.power = NULL,
-	.cm3629_slave_address = 0xC0>>1,
-	.ps1_thd_set = 0x05,
-	.ps1_thd_no_cal = 0xF1,
-	.ps1_thd_with_cal = 0x05,
-	.ps_calibration_rule = 1,
-	.ps_conf1_val = CM3629_PS_DR_1_320 | CM3629_PS_IT_1_6T |
-			CM3629_PS1_PERS_1,
-	.ps_conf2_val = CM3629_PS_ITB_1 | CM3629_PS_ITR_1 |
-			CM3629_PS2_INT_DIS | CM3629_PS1_INT_DIS,
-	.ps_conf3_val = CM3629_PS2_PROL_32,
-	.no_need_change_setting = 1,
-};
-static struct i2c_board_info i2c_CM36282_TMO_EN1_devices[] = {
-	{
-		I2C_BOARD_INFO(CM3629_I2C_NAME, 0xC0 >> 1),
-		.platform_data = &cm36282_TMO_EN1_pdata,
-		.irq =  PM8921_GPIO_IRQ(PM8921_IRQ_BASE, VALENTE_WX_PMGPIO_PROXIMITY_INTz),
-	},
-};
-
-static struct cm3629_platform_data cm36282_TMO_pdata = {
-	.model = CAPELLA_CM36282,
-	.ps_select = CM3629_PS1_ONLY,
-	.intr = PM8921_GPIO_PM_TO_SYS(VALENTE_WX_PMGPIO_PROXIMITY_INTz),
-	.levels = { 8, 10, 12, 19, 283, 3094, 5313, 7847, 10383, 65535},
-	.golden_adc = 3857,
-	.power = NULL,
-	.cm3629_slave_address = 0xC0>>1,
-	.ps1_thd_set = 0x05,
-	.ps1_thd_no_cal = 0xF1,
-	.ps1_thd_with_cal = 0x05,
-	.ps_calibration_rule = 1,
-	.ps_conf1_val = CM3629_PS_DR_1_80 | CM3629_PS_IT_2T |
-			CM3629_PS1_PERS_1,
-	.ps_conf2_val = CM3629_PS_ITB_2 | CM3629_PS_ITR_1 |
-			CM3629_PS2_INT_DIS | CM3629_PS1_INT_DIS,
-	.ps_conf3_val = CM3629_PS2_PROL_32,
-};
-
-static struct i2c_board_info i2c_CM36282_TMO_devices[] = {
-	{
-		I2C_BOARD_INFO(CM3629_I2C_NAME, 0xC0 >> 1),
-		.platform_data = &cm36282_TMO_pdata,
-		.irq =  PM8921_GPIO_IRQ(PM8921_IRQ_BASE, VALENTE_WX_PMGPIO_PROXIMITY_INTz),
-	},
-};
-static struct cm3629_platform_data cm36282_XD_EN1_pdata = {
-	.model = CAPELLA_CM36282,
-	.ps_select = CM3629_PS1_ONLY,
-	.intr = PM8921_GPIO_PM_TO_SYS(VALENTE_WX_PMGPIO_PROXIMITY_INTz),
-	.levels = { 8, 10, 17, 134, 257, 2827, 4779, 6989, 9198, 65535},
-	.golden_adc = 3490,
-	.power = NULL,
-	.cm3629_slave_address = 0xC0>>1,
-	.ps1_thd_set = 0x05,
-	.ps1_thd_no_cal = 0xF1,
-	.ps1_thd_with_cal = 0x05,
-	.ps_calibration_rule = 1,
-	.ps_conf1_val = CM3629_PS_DR_1_320 | CM3629_PS_IT_1_6T |
-			CM3629_PS1_PERS_1,
-	.ps_conf2_val = CM3629_PS_ITB_1 | CM3629_PS_ITR_1 |
-			CM3629_PS2_INT_DIS | CM3629_PS1_INT_DIS,
-	.ps_conf3_val = CM3629_PS2_PROL_32,
-	.no_need_change_setting = 1,
-};
-
-static struct i2c_board_info i2c_CM36282_XD_EN1_devices[] = {
-	{
-		I2C_BOARD_INFO(CM3629_I2C_NAME, 0xC0 >> 1),
-		.platform_data = &cm36282_XD_EN1_pdata,
-		.irq =  PM8921_GPIO_IRQ(PM8921_IRQ_BASE, VALENTE_WX_PMGPIO_PROXIMITY_INTz),
-	},
-};
-
-static struct cm3629_platform_data cm36282_XD_pdata = {
-	.model = CAPELLA_CM36282,
-	.ps_select = CM3629_PS1_ONLY,
-	.intr = PM8921_GPIO_PM_TO_SYS(VALENTE_WX_PMGPIO_PROXIMITY_INTz),
-	.levels = { 8, 10, 17, 134, 257, 2827, 4779, 6989, 9198, 65535},
-	.golden_adc = 3490,
-	.power = NULL,
-	.cm3629_slave_address = 0xC0>>1,
-	.ps1_thd_set = 0x05,
-	.ps1_thd_no_cal = 0xF1,
-	.ps1_thd_with_cal = 0x05,
-	.ps_calibration_rule = 1,
-	.ps_conf1_val = CM3629_PS_DR_1_80 | CM3629_PS_IT_2T |
-			CM3629_PS1_PERS_1,
-	.ps_conf2_val = CM3629_PS_ITB_2 | CM3629_PS_ITR_1 |
-			CM3629_PS2_INT_DIS | CM3629_PS1_INT_DIS,
-	.ps_conf3_val = CM3629_PS2_PROL_32,
-};
-
-static struct i2c_board_info i2c_CM36282_XD_devices[] = {
-	{
-		I2C_BOARD_INFO(CM3629_I2C_NAME, 0xC0 >> 1),
-		.platform_data = &cm36282_XD_pdata,
-		.irq =  PM8921_GPIO_IRQ(PM8921_IRQ_BASE, VALENTE_WX_PMGPIO_PROXIMITY_INTz),
-	},
-};
-
 static struct cm3629_platform_data cm36282_pdata = {
 	.model = CAPELLA_CM36282,
 	.ps_select = CM3629_PS1_ONLY,
 	.intr = PM8921_GPIO_PM_TO_SYS(VALENTE_WX_PMGPIO_PROXIMITY_INTz),
-	.levels = { 8, 10, 33, 259, 516, 4881, 8411, 13023, 23251, 65535},
-	.golden_adc = 5573,
+	.levels = { 0, 2, 0x64, 0x242, 0x869, 0x1b58, 0x29aa, 0x37fc, 0x4600, 0xffff},
+	.golden_adc = 0x17D4,
 	.power = NULL,
 	.cm3629_slave_address = 0xC0>>1,
-	.ps1_thd_set = 0x05,
+	.ps1_thd_set = 0xc,
 	.ps1_thd_no_cal = 0xF1,
-	.ps1_thd_with_cal = 0x05,
+	.ps1_thd_with_cal = 0xc,
 	.ps_calibration_rule = 1,
-	.ps_conf1_val = CM3629_PS_DR_1_80 | CM3629_PS_IT_2T |
+	.ps_conf1_val = CM3629_PS_DR_1_80 | CM3629_PS_IT_1_6T |
 			CM3629_PS1_PERS_1,
-	.ps_conf2_val = CM3629_PS_ITB_2 | CM3629_PS_ITR_1 |
+	.ps_conf2_val = CM3629_PS_ITB_1 | CM3629_PS_ITR_1 |
 			CM3629_PS2_INT_DIS | CM3629_PS1_INT_DIS,
 	.ps_conf3_val = CM3629_PS2_PROL_32,
 };
@@ -3378,10 +3270,16 @@ static struct i2c_registry msm8960_i2c_devices[] __initdata = {
 	},
 	{
 		I2C_SURF | I2C_FFA,
-		MSM_8960_GSBI5_QUP_I2C_BUS_ID,
-		msm_i2c_gsbi5_info,
-		ARRAY_SIZE(msm_i2c_gsbi5_info),
+		MSM_8960_GSBI12_QUP_I2C_BUS_ID,
+		i2c_CM36282_devices,
+		ARRAY_SIZE(i2c_CM36282_devices),
 	},
+	{
+		I2C_SURF | I2C_FFA,
+		MSM_8960_GSBI12_QUP_I2C_BUS_ID,
+ 		msm_i2c_gsbi5_info,
+ 		ARRAY_SIZE(msm_i2c_gsbi5_info),
+ 	},
 };
 #endif /* CONFIG_I2C */
 
@@ -3431,38 +3329,6 @@ static void __init register_i2c_devices(void)
 				valente_wx_camera_i2c_devices.info,
 				valente_wx_camera_i2c_devices.len);
 #endif
-	if (system_rev < 3) {
-		i2c_register_board_info(MSM_8960_GSBI12_QUP_I2C_BUS_ID,
-			i2c_CM36282_devices, ARRAY_SIZE(i2c_CM36282_devices));
-		pr_info("%s: cm36282 PL-sensor for XA,XB,XC, system_rev %d ",
-				 __func__, system_rev);
-	} else {
-		if (skuid & 0x1) {
-			if (engineerid  & 0x1) {
-				i2c_register_board_info(MSM_8960_GSBI12_QUP_I2C_BUS_ID,
-				i2c_CM36282_TMO_EN1_devices, ARRAY_SIZE(i2c_CM36282_TMO_EN1_devices));
-				pr_info("%s: cm36282 PL-sensor TMO EN1 system_rev %d, sku %x ",
-					 __func__, system_rev, skuid);
-			} else {
-				i2c_register_board_info(MSM_8960_GSBI12_QUP_I2C_BUS_ID,
-					i2c_CM36282_TMO_devices, ARRAY_SIZE(i2c_CM36282_TMO_devices));
-				pr_info("%s: cm36282 PL-sensor TMO system_rev %d, sku %x ",
-					 __func__, system_rev, skuid);
-			}
-		} else {
-			if (engineerid  & 0x1) {
-				i2c_register_board_info(MSM_8960_GSBI12_QUP_I2C_BUS_ID,
-					i2c_CM36282_XD_EN1_devices, ARRAY_SIZE(i2c_CM36282_XD_EN1_devices));
-				pr_info("%s: cm36282 PL-sensor for XD and newer HW version EN1, system_rev %d ",
-					__func__, system_rev);
-			} else {
-				i2c_register_board_info(MSM_8960_GSBI12_QUP_I2C_BUS_ID,
-					i2c_CM36282_XD_devices,	ARRAY_SIZE(i2c_CM36282_XD_devices));
-				pr_info("%s: cm36282 PL-sensor for XD and newer HW version, system_rev %d ",
-					__func__, system_rev);
-			}
-		}
-	}
 #endif /* CONFIG_I2C */
 }
 
