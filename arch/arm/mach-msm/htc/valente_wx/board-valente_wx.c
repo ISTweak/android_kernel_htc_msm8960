@@ -24,6 +24,7 @@
 #include <linux/mfd/pm8xxx/pm8921.h>
 #include <linux/regulator/consumer.h>
 #include <linux/spi/spi.h>
+#include <linux/mpu.h>
 #include <linux/slimbus/slimbus.h>
 #ifdef CONFIG_ANDROID_PMEM
 #include <linux/android_pmem.h>
@@ -1628,34 +1629,41 @@ static struct pana_gyro_platform_data pana_gyro_pdata = {
 };
 */
 
-static struct bma250_platform_data gsensor_bma250_platform_data = {
-	.intr = VALENTE_WX_GPIO_GSENSOR_INT,
-	.chip_layout = 1,
-};
+static struct mpu3050_platform_data mpu3050_data = {
+	.int_config = 0x10,
+	.orientation = { 1, 0, 0,
+			 0, 1, 0,
+			 0, 0, 1 },
+	.level_shifter = 0,
 
-static struct akm8975_platform_data compass_platform_data = {
-	.layouts = EVN_8960M_LAYOUTS,
-	.use_pana_gyro = 1,
-};
+	.accel = {
+		.get_slave_descr = get_accel_slave_descr,
+		.adapt_num = MSM_8960_GSBI12_QUP_I2C_BUS_ID, /* The i2c bus to which the mpu device is connected */
+		.bus = EXT_SLAVE_BUS_SECONDARY,
+		.address = 0x30 >> 1,
+			.orientation = { 1, 0, 0,
+					 0, 1, 0,
+					 0, 0, 1 },
 
-static struct i2c_board_info __initdata msm_i2c_sensor_gsbi12_info[] = {
-	{
-		I2C_BOARD_INFO(BMA250_I2C_NAME, 0x30 >> 1),
-		.platform_data = &gsensor_bma250_platform_data,
-		.irq = MSM_GPIO_TO_INT(VALENTE_WX_GPIO_GSENSOR_INT),
 	},
-	{
-		I2C_BOARD_INFO(AKM8975_I2C_NAME, 0x1A >> 1),
-		.platform_data = &compass_platform_data,
-		.irq = MSM_GPIO_TO_INT(VALENTE_WX_GPIO_COMPASS_INT),
+
+	.compass = {
+		.get_slave_descr = get_compass_slave_descr,
+		.adapt_num = MSM_8960_GSBI12_QUP_I2C_BUS_ID, /* The i2c bus to which the mpu device is connected */
+		.bus = EXT_SLAVE_BUS_PRIMARY,
+		.address = 0x1A >> 1,
+			.orientation = {  1, 0, 0,
+					  0, 1, 0,
+					  0, 0, 1 },
 	},
-  /*
+};
+ 
+static struct i2c_board_info __initdata mpu3050_GSBI12_boardinfo[] = {
 	{
-		I2C_BOARD_INFO("ewtzmu2", 0xD2 >> 1),
+		I2C_BOARD_INFO("mpu3050", 0xD0 >> 1),
 		.irq = MSM_GPIO_TO_INT(VALENTE_WX_GPIO_GYRO_INT),
-		.platform_data = &pana_gyro_pdata,
+		.platform_data = &mpu3050_data,
 	},
-  */
 };
 
 static struct cm3629_platform_data cm36282_pdata = {
@@ -3238,12 +3246,6 @@ struct i2c_registry {
 };
 
 static struct i2c_registry msm8960_i2c_devices[] __initdata = {
-	{
-		I2C_SURF | I2C_FFA,
-		MSM_8960_GSBI12_QUP_I2C_BUS_ID,
-		msm_i2c_sensor_gsbi12_info,
-		ARRAY_SIZE(msm_i2c_sensor_gsbi12_info),
-	},
 #ifdef CONFIG_FB_MSM_HDMI_MHL
 #ifdef CONFIG_FB_MSM_HDMI_MHL_SII9234
 	{
@@ -3329,6 +3331,8 @@ static void __init register_i2c_devices(void)
 				valente_wx_camera_i2c_devices.info,
 				valente_wx_camera_i2c_devices.len);
 #endif
+	i2c_register_board_info(MSM_8960_GSBI12_QUP_I2C_BUS_ID,
+			mpu3050_GSBI12_boardinfo, ARRAY_SIZE(mpu3050_GSBI12_boardinfo));
 #endif /* CONFIG_I2C */
 }
 
