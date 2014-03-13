@@ -14,14 +14,6 @@
 #include <mach/gpiomux.h>
 #include "board-valente_wx.h"
 
-#if 0  /* GSBI2 is not used for I2C */
-static struct gpiomux_setting gsbi2 = {
-	.func = GPIOMUX_FUNC_1,
-	.drv = GPIOMUX_DRV_8MA,
-	.pull = GPIOMUX_PULL_NONE,
-};
-#endif /* GSBI2 is not used for I2C */
-
 static struct gpiomux_setting gsbi3 = {
 	.func = GPIOMUX_FUNC_1,
 	.drv = GPIOMUX_DRV_8MA,
@@ -36,56 +28,13 @@ static struct gpiomux_setting gsbi4 = {
 };
 #endif
 
-#if 0
-static struct gpiomux_setting gsbi5 = {
-	.func = GPIOMUX_FUNC_1,
-	.drv  = GPIOMUX_DRV_8MA,
-	.pull = GPIOMUX_PULL_NONE,
-};
-#endif
-
-#if 0
-/* The SPI configurations apply to GSBI 10*/
-static struct gpiomux_setting gsbi10 = {
-	.func = GPIOMUX_FUNC_2,
-	.drv = GPIOMUX_DRV_4MA,
-	.pull = GPIOMUX_PULL_NONE,
-};
-#endif
-
-static struct gpiomux_setting gsbi12 = {
+static struct gpiomux_setting gsbi8 = {
 	.func = GPIOMUX_FUNC_1,
 	.drv = GPIOMUX_DRV_8MA,
 	.pull = GPIOMUX_PULL_NONE,
-};
-
-static struct gpiomux_setting cdc_mclk = {
-	.func = GPIOMUX_FUNC_1,
-	.drv = GPIOMUX_DRV_8MA,
-	.pull = GPIOMUX_PULL_NONE,
-};
-
-static struct gpiomux_setting slimbus = {
-	.func = GPIOMUX_FUNC_1,
-	.drv = GPIOMUX_DRV_8MA,
-	.pull = GPIOMUX_PULL_KEEPER,
 };
 
 static struct msm_gpiomux_config valente_wx_gsbi_configs[] __initdata = {
-#if 0 /* GSBI2 is not used for I2C */
-	{
-		.gpio      = VALENTE_WX_GPIO_VP_I2C_DAT,	/* GSBI2 I2C QUP SDA */
-		.settings = {
-			[GPIOMUX_SUSPENDED] = &gsbi2,
-		},
-	},
-	{
-		.gpio      = VALENTE_WX_GPIO_VP_I2C_CLK,	/* GSBI2 I2C QUP SCL */
-		.settings = {
-			[GPIOMUX_SUSPENDED] = &gsbi2,
-		},
-	},
-#endif /* GSBI2 is not used for I2C */
 	{
 		.gpio      = VALENTE_WX_GPIO_TP_I2C_DAT,	/* GSBI3 I2C QUP SDA */
 		.settings = {
@@ -112,67 +61,44 @@ static struct msm_gpiomux_config valente_wx_gsbi_configs[] __initdata = {
 		},
 	},
 #endif
-#if 0
 	{
-		.gpio      = VALENTE_WX_GPIO_CAP_I2C_DAT,	/* GSBI5 I2C QUP SDA */
+		.gpio      = VALENTE_WX_GPIO_MC_I2C_SDA,	/* GSBI8 I2C QUP SDA */
 		.settings = {
-			[GPIOMUX_SUSPENDED] = &gsbi5,
+			[GPIOMUX_SUSPENDED] = &gsbi8,
 		},
 	},
 	{
-		.gpio      = VALENTE_WX_GPIO_CAP_I2C_CLK,	/* GSBI5 I2C QUP SCL */
+		.gpio      = VALENTE_WX_GPIO_MC_I2C_SCL,	/* GSBI8 I2C QUP SCL */
 		.settings = {
-			[GPIOMUX_SUSPENDED] = &gsbi5,
-		},
-	},
-#endif
-#if 0
-	{
-		/* GSBI10 SPI QUP VALENTE_WX_GPIO_MCAM_SPI_CLK */
-		.gpio      = VALENTE_WX_GPIO_MCAM_SPI_CLK,
-		.settings = {
-			[GPIOMUX_SUSPENDED] = &gsbi10,
-		},
-	},
-	{
-		/* GSBI10 SPI QUP VALENTE_WX_GPIO_MCAM_SPI_CS0 */
-		.gpio      = VALENTE_WX_GPIO_MCAM_SPI_CS0,
-		.settings = {
-			[GPIOMUX_SUSPENDED] = &gsbi10,
-		},
-	},
-	{
-		/* GSBI10 SPI QUP VALENTE_WX_GPIO_MCAM_SPI_DI */
-		.gpio      = VALENTE_WX_GPIO_MCAM_SPI_DI,
-		.settings = {
-			[GPIOMUX_SUSPENDED] = &gsbi10,
-		},
-	},
-	{
-		/* GSBI10 SPI QUP VALENTE_WX_GPIO_MCAM_SPI_DO */
-		.gpio      = VALENTE_WX_GPIO_MCAM_SPI_DO,
-		.settings = {
-			[GPIOMUX_SUSPENDED] = &gsbi10,
-		},
-	},
-#endif
-	{
-		.gpio      = VALENTE_WX_GPIO_SR_I2C_DAT,	/* GSBI12 I2C QUP SDA */
-		.settings = {
-			[GPIOMUX_SUSPENDED] = &gsbi12,
-		},
-	},
-	{
-		.gpio      = VALENTE_WX_GPIO_SR_I2C_CLK,	/* GSBI12 I2C QUP SCL */
-		.settings = {
-			[GPIOMUX_SUSPENDED] = &gsbi12,
+			[GPIOMUX_SUSPENDED] = &gsbi8,
 		},
 	},
 };
 
+static struct gpiomux_setting cdc_mclk = {
+	.func = GPIOMUX_FUNC_1,
+	.drv = GPIOMUX_DRV_8MA,
+	.pull = GPIOMUX_PULL_NONE,
+};
+
+static struct msm_gpiomux_config valente_wx_audio_codec_configs[] __initdata = {
+	{
+		.gpio = VALENTE_WX_GPIO_AUD_WCD_MCLK_CPU,
+		.settings = {
+			[GPIOMUX_SUSPENDED] = &cdc_mclk,
+		},
+	},
+};
+
+static struct gpiomux_setting slimbus = {
+	.func = GPIOMUX_FUNC_1,
+	.drv = GPIOMUX_DRV_8MA,
+	.pull = GPIOMUX_PULL_KEEPER,
+};
+
 static struct msm_gpiomux_config valente_wx_slimbus_configs[] __initdata = {
 	{
-		.gpio	= VALENTE_WX_GPIO_AUD_WCD_SB_CLK,		/* slimbus data */
+		.gpio	= VALENTE_WX_GPIO_AUD_WCD_SB_CLK_CPU,		/* slimbus data */
 		.settings = {
 			[GPIOMUX_SUSPENDED] = &slimbus,
 		},
@@ -185,14 +111,6 @@ static struct msm_gpiomux_config valente_wx_slimbus_configs[] __initdata = {
 	},
 };
 
-static struct msm_gpiomux_config valente_wx_audio_codec_configs[] __initdata = {
-	{
-		.gpio = VALENTE_WX_GPIO_AUD_WCD_MCLK,
-		.settings = {
-			[GPIOMUX_SUSPENDED] = &cdc_mclk,
-		},
-	},
-};
 static struct gpiomux_setting wcnss_5wire_suspend_cfg = {
 	.func = GPIOMUX_FUNC_GPIO,
 	.drv  = GPIOMUX_DRV_10MA,
@@ -328,7 +246,7 @@ static struct gpiomux_setting mdp_vsync_suspend_cfg = {
 	.pull = GPIOMUX_PULL_DOWN,
 };
 
-static struct msm_gpiomux_config msm8960_mdp_vsync_configs[] __initdata = {
+static struct msm_gpiomux_config valente_wx_mdp_vsync_configs[] __initdata = {
 	{
 		.gpio = VALENTE_WX_GPIO_LCD_TE,
 		.settings = {
@@ -339,44 +257,14 @@ static struct msm_gpiomux_config msm8960_mdp_vsync_configs[] __initdata = {
 };
 
 #ifdef CONFIG_FB_MSM_HDMI_MSM_PANEL
-#if 0
-static struct gpiomux_setting mhl_i2c_active_cfg = {
-	.func = GPIOMUX_FUNC_1,
-	.drv = GPIOMUX_DRV_8MA,
-	.pull = GPIOMUX_PULL_NONE,
-};
 
-static struct gpiomux_setting mhl_i2c_suspend_cfg = {
-	.func = GPIOMUX_FUNC_1,
-	.drv = GPIOMUX_DRV_8MA,
-	.pull = GPIOMUX_PULL_NONE,
-};
-
-static struct msm_gpiomux_config valente_wx_mhl_i2c_configs[] __initdata = {
-	{
-		.gpio = 36,
-		.settings = {
-			[GPIOMUX_ACTIVE]    = &mhl_i2c_active_cfg,
-			[GPIOMUX_SUSPENDED] = &mhl_i2c_suspend_cfg,
-		},
-	},
-	{
-		.gpio = 37,
-		.settings = {
-			[GPIOMUX_ACTIVE]    = &mhl_i2c_active_cfg,
-			[GPIOMUX_SUSPENDED] = &mhl_i2c_suspend_cfg,
-		},
-	},
-};
-#endif
-
-static struct gpiomux_setting mhl_suspend_int_cfg = {
+static struct gpiomux_setting mhl_active_int_cfg = {
 	.func = GPIOMUX_FUNC_GPIO,
 	.drv = GPIOMUX_DRV_2MA,
 	.pull = GPIOMUX_PULL_UP,
 };
 
-static struct gpiomux_setting mhl_active_int_cfg = {
+static struct gpiomux_setting mhl_suspend_int_cfg = {
 	.func = GPIOMUX_FUNC_GPIO,
 	.drv = GPIOMUX_DRV_2MA,
 	.pull = GPIOMUX_PULL_UP,
@@ -387,21 +275,23 @@ static struct gpiomux_setting mhl_active_rst_cfg = {
 	.drv = GPIOMUX_DRV_2MA,
 	.pull = GPIOMUX_PULL_NONE,
 };
+
 static struct gpiomux_setting mhl_suspend_rst_cfg = {
 	.func = GPIOMUX_FUNC_GPIO,
 	.drv = GPIOMUX_DRV_2MA,
 	.pull = GPIOMUX_PULL_NONE,
 };
+
 static struct msm_gpiomux_config valente_wx_mhl_configs[] __initdata = {
 	{
-		.gpio = VALENTE_WX_GPIO_MHL_RSTz,
+		.gpio = VALENTE_WX_GPIO_MHL_INT,
 		.settings = {
 			[GPIOMUX_ACTIVE]    = &mhl_active_int_cfg,
 			[GPIOMUX_SUSPENDED] = &mhl_suspend_int_cfg,
 		},
 	},
 	{
-		.gpio = VALENTE_WX_GPIO_MHL_INT,
+		.gpio = VALENTE_WX_GPIO_MHL_RSTz,
 		.settings = {
 			[GPIOMUX_ACTIVE]    = &mhl_active_rst_cfg,
 			[GPIOMUX_SUSPENDED] = &mhl_suspend_rst_cfg,
@@ -495,19 +385,14 @@ int __init valente_wx_gpiomux_init(void)
 			ARRAY_SIZE(valente_wx_audio_codec_configs));
 
 #ifdef CONFIG_FB_MSM_HDMI_MSM_PANEL
-#if 0
-	msm_gpiomux_install(valente_wx_mhl_i2c_configs,
-			ARRAY_SIZE(valente_wx_mhl_i2c_configs));
-#endif
-
 	msm_gpiomux_install(valente_wx_hdmi_configs,
 			ARRAY_SIZE(valente_wx_hdmi_configs));
 
 	msm_gpiomux_install(valente_wx_mhl_configs,
 			ARRAY_SIZE(valente_wx_mhl_configs));
 #endif
-	msm_gpiomux_install(msm8960_mdp_vsync_configs,
-			ARRAY_SIZE(msm8960_mdp_vsync_configs));
+	msm_gpiomux_install(valente_wx_mdp_vsync_configs,
+			ARRAY_SIZE(valente_wx_mdp_vsync_configs));
 
 	msm_gpiomux_install(wcnss_5wire_interface,
 			ARRAY_SIZE(wcnss_5wire_interface));
