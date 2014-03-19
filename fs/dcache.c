@@ -1760,8 +1760,7 @@ EXPORT_SYMBOL(d_add_ci);
  * child is looked up. Thus, an interlocking stepping of sequence lock checks
  * is formed, giving integrity down the path walk.
  */
-struct dentry *__d_lookup_rcu(const struct dentry *parent,
-				const struct qstr *name,
+struct dentry *__d_lookup_rcu(struct dentry *parent, struct qstr *name,
 				unsigned *seqp, struct inode **inode)
 {
 	unsigned int len = name->len;

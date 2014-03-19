@@ -216,7 +216,7 @@ extern struct dentry * d_alloc(struct dentry *, const struct qstr *);
 extern struct dentry * d_alloc_pseudo(struct super_block *, const struct qstr *);
 extern struct dentry * d_splice_alias(struct inode *, struct dentry *);
 extern struct dentry * d_add_ci(struct dentry *, struct inode *, struct qstr *);
-extern struct dentry *d_find_any_alias(struct inode *inode);
+extern struct dentry * d_find_any_alias(struct inode *inode);
 extern struct dentry * d_obtain_alias(struct inode *);
 extern void shrink_dcache_sb(struct super_block *);
 extern void shrink_dcache_parent(struct dentry *);
@@ -282,9 +282,8 @@ extern struct dentry *d_ancestor(struct dentry *, struct dentry *);
 extern struct dentry *d_lookup(struct dentry *, struct qstr *);
 extern struct dentry *d_hash_and_lookup(struct dentry *, struct qstr *);
 extern struct dentry *__d_lookup(struct dentry *, struct qstr *);
-extern struct dentry *__d_lookup_rcu(const struct dentry *parent,
-				const struct qstr *name,
-				unsigned *seq, struct inode **inode);
+extern struct dentry *__d_lookup_rcu(struct dentry *parent, struct qstr *name,
+				unsigned *seqp, struct inode **inode);
 
 /**
  * __d_rcu_to_refcount - take a refcount on dentry if sequence check is ok
