@@ -127,6 +127,10 @@
 #include <mach/perflock.h>
 #endif
 
+#ifdef CONFIG_TSIF
+#include <mach/msm_tsif.h>
+#endif
+
 #ifdef CONFIG_FELICA_DD
 #include <linux/platform_device.h>
 #include <linux/felica.h>
@@ -393,6 +397,31 @@ static struct memtype_reserve msm8960_reserve_table[] __initdata = {
 		.flags	=	MEMTYPE_FLAGS_1M_ALIGN,
 	},
 };
+
+#if defined(CONFIG_MSM_RTB)
+static struct msm_rtb_platform_data msm8960_rtb_pdata = {
+	.size = SZ_1K,
+};
+
+static int __init msm_rtb_set_buffer_size(char *p)
+{
+	int s;
+
+	s = memparse(p, NULL);
+	msm_rtb_pdata.size = ALIGN(s, SZ_4K);
+	return 0;
+}
+early_param("msm_rtb_size", msm_rtb_set_buffer_size);
+
+
+static struct platform_device msm_rtb_device = {
+	.name           = "msm_rtb",
+	.id             = -1,
+	.dev            = {
+		.platform_data = &msm_rtb_pdata,
+	},
+};
+#endif
 
 static void __init reserve_rtb_memory(void)
 {
@@ -3572,18 +3601,6 @@ static void msm_region_id_gpio_init(void)
 	gpio_tlmm_config(msm_region_gpio[0], GPIO_CFG_ENABLE);
 }
 
-#ifdef CONFIG_RAWCHIP
-static struct spi_board_info rawchip_spi_board_info[] __initdata = {
-	{
-		.modalias               = "spi_rawchip",
-		.max_speed_hz           = 27000000,
-		.bus_num                = 1,
-		.chip_select            = 0,
-		.mode                   = SPI_MODE_0,
-	},
-};
-#endif
-
 #ifdef CONFIG_VIDEO_NMI
 static uint32_t oneseg_on_gpio_table[] = {
     GPIO_CFG(VALENTE_WX_GPIO__1SEG_I2C_SDA, 1, GPIO_CFG_INPUT, GPIO_CFG_NO_PULL, GPIO_CFG_8MA),
@@ -3757,10 +3774,6 @@ static void __init valente_wx_init(void)
 	valente_wx_gpiomux_init();
 	msm8960_device_qup_spi_gsbi10.dev.platform_data =
 		&msm8960_qup_spi_gsbi10_pdata;
-#ifdef CONFIG_RAWCHIP
-	spi_register_board_info(rawchip_spi_board_info,
-			ARRAY_SIZE(rawchip_spi_board_info));
-#endif
 	valente_wx_init_pmic();
 	msm8960_i2c_init();
 	msm8960_gfx_init();

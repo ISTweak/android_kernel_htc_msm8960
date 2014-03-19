@@ -325,32 +325,6 @@ static struct msm_bus_scale_pdata cam_bus_client_pdata = {
 static int valente_wx_csi_vreg_on(void);
 static int valente_wx_csi_vreg_off(void);
 
-struct msm_camera_device_platform_data msm_camera_csi_device_data[] = {
-	{
-		.ioclk.mclk_clk_rate = 24000000,
-		.ioclk.vfe_clk_rate  = 228570000,
-		.csid_core = 0,
-		.camera_csi_on = valente_wx_csi_vreg_on,
-		.camera_csi_off = valente_wx_csi_vreg_off,
-		.cam_bus_scale_table = &cam_bus_client_pdata,
-		.is_csiphy = 1,
-		.is_csid   = 1,
-		.is_ispif  = 1,
-		.is_vpe    = 1,
-	},
-	{
-		.ioclk.mclk_clk_rate = 24000000,
-		.ioclk.vfe_clk_rate  = 228570000,
-		.csid_core = 1,
-		.camera_csi_on = valente_wx_csi_vreg_on,
-		.camera_csi_off = valente_wx_csi_vreg_off,
-		.cam_bus_scale_table = &cam_bus_client_pdata,
-		.is_csiphy = 1,
-		.is_csid   = 1,
-		.is_ispif  = 1,
-		.is_vpe    = 1,
-	},
-};
 
 #ifdef CONFIG_MSM_CAMERA_FLASH
 #define LED_ON				1
@@ -542,6 +516,16 @@ static struct platform_device msm_rawchip_device = {
 		.platform_data = &msm_rawchip_board_info,
 	},
 };
+
+static struct spi_board_info rawchip_spi_board_info[] __initdata = {
+	{
+		.modalias               = "spi_rawchip",
+		.max_speed_hz           = 27000000,
+		.bus_num                = 1,
+		.chip_select            = 0,
+		.mode                   = SPI_MODE_0,
+	},
+};
 #endif /* CONFIG_RAWCHIP */
 
 static uint16_t msm_cam_gpio_tbl[] = {
@@ -629,6 +613,33 @@ static int valente_wx_csi_vreg_off(void)
 	pr_info("%s\n", __func__);
 	return camera_sensor_power_disable(reg_8921_l2);
 }
+
+struct msm_camera_device_platform_data msm_camera_csi_device_data[] = {
+	{
+		.ioclk.mclk_clk_rate = 24000000,
+		.ioclk.vfe_clk_rate  = 228570000,
+		.csid_core = 0,
+		.camera_csi_on = valente_wx_csi_vreg_on,
+		.camera_csi_off = valente_wx_csi_vreg_off,
+		.cam_bus_scale_table = &cam_bus_client_pdata,
+		.is_csiphy = 1,
+		.is_csid   = 1,
+		.is_ispif  = 1,
+		.is_vpe    = 1,
+	},
+	{
+		.ioclk.mclk_clk_rate = 24000000,
+		.ioclk.vfe_clk_rate  = 228570000,
+		.csid_core = 1,
+		.camera_csi_on = valente_wx_csi_vreg_on,
+		.camera_csi_off = valente_wx_csi_vreg_off,
+		.cam_bus_scale_table = &cam_bus_client_pdata,
+		.is_csiphy = 1,
+		.is_csid   = 1,
+		.is_ispif  = 1,
+		.is_vpe    = 1,
+	},
+};
 
 #ifdef CONFIG_S5K3H2YX
 static int valente_wx_s5k3h2yx_vreg_on(void)
@@ -1388,6 +1399,11 @@ void __init valente_wx_init_camera(void)
 #ifdef CONFIG_MSM_CAMERA
 	msm_gpiomux_install(valente_wx_cam_configs,
 			ARRAY_SIZE(valente_wx_cam_configs));
+
+#ifdef CONFIG_RAWCHIP
+	spi_register_board_info(rawchip_spi_board_info,
+			ARRAY_SIZE(rawchip_spi_board_info));
+#endif
 
 	platform_device_register(&msm_rawchip_device);
 	platform_device_register(&msm_camera_server);

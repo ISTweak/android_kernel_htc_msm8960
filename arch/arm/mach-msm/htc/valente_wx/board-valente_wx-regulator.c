@@ -30,10 +30,9 @@ VREG_CONSUMERS(L1) = {
 VREG_CONSUMERS(L2) = {
 	REGULATOR_SUPPLY("8921_l2",		NULL),
 	REGULATOR_SUPPLY("dsi_vdda",		"mipi_dsi.1"),
-	REGULATOR_SUPPLY("dsi_pll_vdda",	"mdp.0"),
-	REGULATOR_SUPPLY("mipi_csi_vdd",	"msm_csiphy.0"),
-	REGULATOR_SUPPLY("mipi_csi_vdd",	"msm_csiphy.1"),
-	REGULATOR_SUPPLY("mipi_csi_vdd",	"msm_csiphy.2"),
+	REGULATOR_SUPPLY("mipi_csi_vdd",	"msm_camera_imx074.0"),
+	REGULATOR_SUPPLY("mipi_csi_vdd",	"msm_camera_ov2720.0"),
+	REGULATOR_SUPPLY("mipi_csi_vdd",	"msm_camera_qs_mt9p017.0"),
 };
 VREG_CONSUMERS(L3) = {
 	REGULATOR_SUPPLY("8921_l3",		NULL),
@@ -63,7 +62,6 @@ VREG_CONSUMERS(L8) = {
 VREG_CONSUMERS(L9) = {
 	REGULATOR_SUPPLY("8921_l9",		NULL),
 	REGULATOR_SUPPLY("vdd",			"3-0024"),
-	REGULATOR_SUPPLY("vdd_ana",		"3-004a"),
 };
 VREG_CONSUMERS(L10) = {
 	REGULATOR_SUPPLY("8921_l10",		NULL),
@@ -72,19 +70,15 @@ VREG_CONSUMERS(L10) = {
 };
 VREG_CONSUMERS(L11) = {
 	REGULATOR_SUPPLY("8921_l11",		NULL),
-	REGULATOR_SUPPLY("cam_vana",		"4-001a"),
-	REGULATOR_SUPPLY("cam_vana",		"4-006c"),
-	REGULATOR_SUPPLY("cam_vana",		"4-0048"),
-	REGULATOR_SUPPLY("cam_vana",		"4-0020"),
-	REGULATOR_SUPPLY("cam_vana",		"4-0034"),
+	REGULATOR_SUPPLY("cam_vana",		"msm_camera_imx074.0"),
+	REGULATOR_SUPPLY("cam_vana",		"msm_camera_ov2720.0"),
+	REGULATOR_SUPPLY("cam_vana",		"msm_camera_qs_mt9p017.0"),
 };
 VREG_CONSUMERS(L12) = {
 	REGULATOR_SUPPLY("8921_l12",		NULL),
-	REGULATOR_SUPPLY("cam_vdig",		"4-001a"),
-	REGULATOR_SUPPLY("cam_vdig",		"4-006c"),
-	REGULATOR_SUPPLY("cam_vdig",		"4-0048"),
-	REGULATOR_SUPPLY("cam_vdig",		"4-0020"),
-	REGULATOR_SUPPLY("cam_vdig",		"4-0034"),
+	REGULATOR_SUPPLY("cam_vdig",		"msm_camera_imx074.0"),
+	REGULATOR_SUPPLY("cam_vdig",		"msm_camera_ov2720.0"),
+	REGULATOR_SUPPLY("cam_vdig",		"msm_camera_qs_mt9p017.0"),
 };
 VREG_CONSUMERS(L14) = {
 	REGULATOR_SUPPLY("8921_l14",		NULL),
@@ -95,11 +89,9 @@ VREG_CONSUMERS(L15) = {
 };
 VREG_CONSUMERS(L16) = {
 	REGULATOR_SUPPLY("8921_l16",		NULL),
-	REGULATOR_SUPPLY("cam_vaf",		"4-001a"),
-	REGULATOR_SUPPLY("cam_vaf",		"4-006c"),
-	REGULATOR_SUPPLY("cam_vaf",		"4-0048"),
-	REGULATOR_SUPPLY("cam_vaf",		"4-0020"),
-	REGULATOR_SUPPLY("cam_vaf",		"4-0034"),
+	REGULATOR_SUPPLY("cam_vaf",		"msm_camera_imx074.0"),
+	REGULATOR_SUPPLY("cam_vaf",		"msm_camera_ov2720.0"),
+	REGULATOR_SUPPLY("cam_vaf",		"msm_camera_qs_mt9p017.0"),
 };
 VREG_CONSUMERS(L17) = {
 	REGULATOR_SUPPLY("8921_l17",		NULL),
@@ -116,7 +108,6 @@ VREG_CONSUMERS(L22) = {
 VREG_CONSUMERS(L23) = {
 	REGULATOR_SUPPLY("8921_l23",		NULL),
 	REGULATOR_SUPPLY("dsi_vddio",		"mipi_dsi.1"),
-	REGULATOR_SUPPLY("dsi_pll_vddio",	"mdp.0"),
 	REGULATOR_SUPPLY("hdmi_avdd",		"hdmi_msm.0"),
 	REGULATOR_SUPPLY("pll_vdd",		"pil_riva"),
 	REGULATOR_SUPPLY("pll_vdd",		"pil_qdsp6v4.1"),
@@ -160,7 +151,6 @@ VREG_CONSUMERS(S3) = {
 	REGULATOR_SUPPLY("8921_s3",		NULL),
 	REGULATOR_SUPPLY("HSUSB_VDDCX",		"msm_otg"),
 	REGULATOR_SUPPLY("riva_vddcx",		"wcnss_wlan.0"),
-	REGULATOR_SUPPLY("HSIC_VDDCX",		"msm_hsic_host"),
 };
 VREG_CONSUMERS(S4) = {
 	REGULATOR_SUPPLY("8921_s4",		NULL),
@@ -178,16 +168,14 @@ VREG_CONSUMERS(S4) = {
 	REGULATOR_SUPPLY("CDC_VDDA_TX",		"tabla2x-slim"),
 	REGULATOR_SUPPLY("CDC_VDDA_RX",		"tabla2x-slim"),
 	REGULATOR_SUPPLY("vcc_i2c",		"3-005b"),
-	REGULATOR_SUPPLY("EXT_HUB_VDDIO",	"msm_smsc_hub"),
-	REGULATOR_SUPPLY("vcc_i2c",		"10-0048"),
 };
 VREG_CONSUMERS(S5) = {
 	REGULATOR_SUPPLY("8921_s5",		NULL),
-	REGULATOR_SUPPLY("krait0",		"acpuclk-8960"),
+	REGULATOR_SUPPLY("krait0",		NULL),
 };
 VREG_CONSUMERS(S6) = {
 	REGULATOR_SUPPLY("8921_s6",		NULL),
-	REGULATOR_SUPPLY("krait1",		"acpuclk-8960"),
+	REGULATOR_SUPPLY("krait1",		NULL),
 };
 VREG_CONSUMERS(S7) = {
 	REGULATOR_SUPPLY("8921_s7",		NULL),
@@ -197,6 +185,7 @@ VREG_CONSUMERS(S8) = {
 };
 VREG_CONSUMERS(LVS1) = {
 	REGULATOR_SUPPLY("8921_lvs1",		NULL),
+	REGULATOR_SUPPLY("sdc_vdd",		"msm_sdcc.4"),
 	REGULATOR_SUPPLY("iris_vddio",		"wcnss_wlan.0"),
 };
 VREG_CONSUMERS(LVS2) = {
@@ -209,15 +198,12 @@ VREG_CONSUMERS(LVS3) = {
 VREG_CONSUMERS(LVS4) = {
 	REGULATOR_SUPPLY("8921_lvs4",		NULL),
 	REGULATOR_SUPPLY("vcc_i2c",		"3-0024"),
-	REGULATOR_SUPPLY("vcc_i2c",		"3-004a"),
 };
 VREG_CONSUMERS(LVS5) = {
 	REGULATOR_SUPPLY("8921_lvs5",		NULL),
-	REGULATOR_SUPPLY("cam_vio",		"4-001a"),
-	REGULATOR_SUPPLY("cam_vio",		"4-006c"),
-	REGULATOR_SUPPLY("cam_vio",		"4-0048"),
-	REGULATOR_SUPPLY("cam_vio",		"4-0020"),
-	REGULATOR_SUPPLY("cam_vio",		"4-0034"),
+	REGULATOR_SUPPLY("cam_vio",		"msm_camera_imx074.0"),
+	REGULATOR_SUPPLY("cam_vio",		"msm_camera_ov2720.0"),
+	REGULATOR_SUPPLY("cam_vio",		"msm_camera_qs_mt9p017.0"),
 };
 VREG_CONSUMERS(LVS6) = {
 	REGULATOR_SUPPLY("8921_lvs6",		NULL),
@@ -228,6 +214,7 @@ VREG_CONSUMERS(LVS7) = {
 };
 VREG_CONSUMERS(USB_OTG) = {
 	REGULATOR_SUPPLY("8921_usb_otg",	NULL),
+	REGULATOR_SUPPLY("vbus_otg",		"msm_otg"),
 };
 VREG_CONSUMERS(HDMI_MVS) = {
 	REGULATOR_SUPPLY("8921_hdmi_mvs",	NULL),
@@ -247,11 +234,6 @@ VREG_CONSUMERS(EXT_3P3V) = {
 	REGULATOR_SUPPLY("ext_3p3v",		NULL),
 	REGULATOR_SUPPLY("vdd_ana",		"3-005b"),
 	REGULATOR_SUPPLY("vdd_lvds_3p3v",	"mipi_dsi.1"),
-	REGULATOR_SUPPLY("mhl_ext_3p3v",	"msm_otg"),
-};
-VREG_CONSUMERS(EXT_OTG_SW) = {
-	REGULATOR_SUPPLY("ext_otg_sw",		NULL),
-	REGULATOR_SUPPLY("vbus_otg",		"msm_otg"),
 };
 
 #define PM8XXX_VREG_INIT(_id, _name, _min_uV, _max_uV, _modes, _ops, \
@@ -481,8 +463,6 @@ struct gpio_regulator_platform_data msm_gpio_regulator_pdata[] __devinitdata = {
 	GPIO_VREG(EXT_L2, "ext_l2", "ext_l2_en", 91, NULL),
 	GPIO_VREG(EXT_3P3V, "ext_3p3v", "ext_3p3v_en",
 		PM8921_GPIO_PM_TO_SYS(17), NULL),
-	GPIO_VREG(EXT_OTG_SW, "ext_otg_sw", "ext_otg_sw_en",
-		PM8921_GPIO_PM_TO_SYS(42), "8921_usb_otg"),
 };
 
 struct platform_device msm8960_device_ext_5v_vreg __devinitdata = {
@@ -498,6 +478,23 @@ struct platform_device msm8960_device_ext_l2_vreg __devinitdata = {
 	.id     = 91,
 	.dev    = {
 		.platform_data = &msm_gpio_regulator_pdata[GPIO_VREG_ID_EXT_L2],
+	},
+};
+
+struct platform_device msm8960_device_ext_3p3v_vreg __devinitdata = {
+	.name	= GPIO_REGULATOR_DEV_NAME,
+	.id	= PM8921_GPIO_PM_TO_SYS(17),
+	.dev	= {
+		.platform_data =
+			&msm_gpio_regulator_pdata[GPIO_VREG_ID_EXT_3P3V],
+	},
+};
+
+struct platform_device msm8960_device_rpm_regulator __devinitdata = {
+	.name	= "rpm-regulator",
+	.id	= -1,
+	.dev	= {
+		.platform_data = &valente_wx_rpm_regulator_pdata,
 	},
 };
 
