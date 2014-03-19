@@ -491,14 +491,14 @@ static int f2fs_statfs(struct dentry *dentry, struct kstatfs *buf)
 	return 0;
 }
 
-static int f2fs_show_options(struct seq_file *seq, struct vfsmount *vfs)
+static int f2fs_show_options(struct seq_file *seq, struct dentry *root)
 {
-	struct f2fs_sb_info *sbi = F2FS_SB(vfs->mnt_sb);
+	struct f2fs_sb_info *sbi = F2FS_SB(root->d_sb);
 
-	if (!(vfs->mnt_sb->s_flags & MS_RDONLY) && test_opt(sbi, BG_GC))
-		seq_printf(seq, ",background_gc=%s", "on");
+	if (test_opt(sbi, BG_GC))
+		seq_puts(seq, ",background_gc_on");
 	else
-		seq_printf(seq, ",background_gc=%s", "off");
+		seq_puts(seq, ",background_gc_off");
 	if (test_opt(sbi, DISABLE_ROLL_FORWARD))
 		seq_puts(seq, ",disable_roll_forward");
 	if (test_opt(sbi, DISCARD))
@@ -510,8 +510,6 @@ static int f2fs_show_options(struct seq_file *seq, struct vfsmount *vfs)
 		seq_puts(seq, ",user_xattr");
 	else
 		seq_puts(seq, ",nouser_xattr");
-	if (test_opt(sbi, INLINE_XATTR))
-		seq_puts(seq, ",inline_xattr");
 #endif
 #ifdef CONFIG_F2FS_FS_POSIX_ACL
 	if (test_opt(sbi, POSIX_ACL))
@@ -519,12 +517,6 @@ static int f2fs_show_options(struct seq_file *seq, struct vfsmount *vfs)
 	else
 		seq_puts(seq, ",noacl");
 #endif
-	if (test_opt(sbi, ERRORS_PANIC))
-		seq_puts(seq, ",errors=panic");
-	else if (test_opt(sbi, ERRORS_RECOVER))
-		seq_puts(seq, ",errors=recover");
-	else
-		seq_puts(seq, ",errors=continue");
 	if (test_opt(sbi, DISABLE_EXT_IDENTIFY))
 		seq_puts(seq, ",disable_ext_identify");
 
