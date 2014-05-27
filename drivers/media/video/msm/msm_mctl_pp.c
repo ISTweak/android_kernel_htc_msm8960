@@ -900,7 +900,18 @@ int msm_mctl_pp_done(
 
 	spin_lock_irqsave(&p_mctl->pp_info.lock, flags);
 	image_mode = msm_mctl_pp_path_to_img_mode(frame.path);
-	if (image_mode < 0) {
+	if (frame.inst_handle) {
+		buf_handle.buf_lookup_type = BUF_LOOKUP_BY_INST_HANDLE;
+		buf_handle.inst_handle = frame.inst_handle;
+		image_mode = GET_IMG_MODE(frame.inst_handle);
+	} else {
+		buf_handle.buf_lookup_type = BUF_LOOKUP_BY_IMG_MODE;
+		buf_handle.image_mode =
+			msm_mctl_pp_path_to_img_mode(frame.path);
+		image_mode = buf_handle.image_mode;
+	}
+	if (image_mode < 0 || image_mode >= MSM_MAX_IMG_MODE) {
+		spin_unlock_irqrestore(&p_mctl->pp_info.lock, flags);
 		pr_err("%s Invalid image mode\n", __func__);
 		return image_mode;
 	}
