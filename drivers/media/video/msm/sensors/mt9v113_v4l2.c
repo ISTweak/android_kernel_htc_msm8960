@@ -2296,7 +2296,7 @@ int mt9v113_sensor_release(void)
 		gpio_free(sdata->sensor_reset);
 	}
 
-	msm_camio_clk_disable(CAMIO_CAM_MCLK_CLK);
+	msm_camio_clk_disable(sdata, CAMIO_CAM_MCLK_CLK);
 
 	mdelay(2);
 

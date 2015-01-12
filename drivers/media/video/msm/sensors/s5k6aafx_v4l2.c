@@ -1122,7 +1122,7 @@ int s5k6aafx_sensor_open_init(const struct msm_camera_sensor_info *data)
 	mdelay(1);
 
 	/*MCLK ENABLE*/
-	rc = msm_camio_clk_enable(CAMIO_CAM_MCLK_CLK);
+	rc = msm_camio_clk_enable(data, CAMIO_CAM_MCLK_CLK);
 	
 	msm_camio_clk_rate_set(24000000);
 	mdelay(1);
@@ -1283,7 +1283,7 @@ init_fail:
 	mdelay(5);
 	s5k6aafx_gpio_pull(data->sensor_reset, 0);
 	mdelay(1);
-	msm_camio_clk_disable(CAMIO_CAM_MCLK_CLK);	
+	msm_camio_clk_disable(data, CAMIO_CAM_MCLK_CLK);	
 	mdelay(1);	
 	if (!data->power_down_disable)
 		s5k6aafx_vreg_disable(s5k6aafx_pdev);
@@ -1384,7 +1384,7 @@ int s5k6aafx_sensor_release(void)
 
 
 
-	rc = msm_camio_clk_disable(CAMIO_CAM_MCLK_CLK);
+	rc = msm_camio_clk_disable(sdata, CAMIO_CAM_MCLK_CLK);
 	
 	mdelay(2);
 	if (rc<0)
@@ -1539,7 +1539,7 @@ static int s5k6aafx_sensor_probe(const struct msm_camera_sensor_info *info,
 	if (rc<0)
 		pr_err("%s, s5k6aa vreg enable failed", __func__);
 	mdelay(1);
-	rc = msm_camio_clk_enable(CAMIO_CAM_MCLK_CLK);
+	rc = msm_camio_clk_enable(sdata, CAMIO_CAM_MCLK_CLK);
 	msm_camio_clk_rate_set(24000000);
 	if (rc<0)
 		pr_err("%s, mclk enable failed", __func__);
@@ -1588,7 +1588,7 @@ read_id_fail:
 	mdelay(5);
 	s5k6aafx_gpio_pull(info->sensor_reset, 0);
 	mdelay(1);
-	msm_camio_clk_disable(CAMIO_CAM_MCLK_CLK);	
+	msm_camio_clk_disable(sdata, CAMIO_CAM_MCLK_CLK);	
 	mdelay(1);	
 	if (!sdata->power_down_disable)
 		s5k6aafx_vreg_disable(s5k6aafx_pdev);
