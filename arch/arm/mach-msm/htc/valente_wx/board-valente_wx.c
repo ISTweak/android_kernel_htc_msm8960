@@ -3082,8 +3082,8 @@ static void __init msm8960_gfx_init(void)
 	} else {
 		kgsl_3d0_pdata->iommu_count = 1;
 		if (SOCINFO_VERSION_MAJOR(soc_platform_version) == 1) {
-			kgsl_3d0_pdata->pwrlevel[0].gpu_freq = 320000000;
-			kgsl_3d0_pdata->pwrlevel[1].gpu_freq = 266667000;
+			kgsl_3d0_pdata->pwrlevel[0].gpu_freq = 360000000;
+			kgsl_3d0_pdata->pwrlevel[1].gpu_freq = 320000000;	//266667000
 		}
 		if (SOCINFO_VERSION_MAJOR(soc_platform_version) >= 3) {
 			/* 8960v3 GPU registers returns 5 for patch release

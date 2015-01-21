@@ -46,7 +46,7 @@ static struct scalable scalable[] __initdata = {
 		.aux_clk_sel = 3,
 		.sec_clk_sel = 2,
 		.l2cpmr_iaddr = 0x4501,
-		.vreg[VREG_CORE] = { "krait0", 1300000 },
+		.vreg[VREG_CORE] = { "krait0", 1400000 },
 		.vreg[VREG_MEM]  = { "krait0_mem", 1150000 },
 		.vreg[VREG_DIG]  = { "krait0_dig", 1150000 },
 		.vreg[VREG_HFPLL_A] = { "krait0_s8", 2050000 },
@@ -58,7 +58,7 @@ static struct scalable scalable[] __initdata = {
 		.aux_clk_sel = 3,
 		.sec_clk_sel = 2,
 		.l2cpmr_iaddr = 0x5501,
-		.vreg[VREG_CORE] = { "krait1", 1300000 },
+		.vreg[VREG_CORE] = { "krait1", 1400000 },
 		.vreg[VREG_MEM]  = { "krait1_mem", 1150000 },
 		.vreg[VREG_DIG]  = { "krait1_dig", 1150000 },
 		.vreg[VREG_HFPLL_A] = { "krait1_s8", 2050000 },
@@ -82,7 +82,7 @@ static struct msm_bus_paths bw_level_tbl[] __initdata = {
 	[3] = BW_MBPS(2128), /* At least 266 MHz on bus. */
 	[4] = BW_MBPS(3200), /* At least 400 MHz on bus. */
 	[5] = BW_MBPS(3600), /* At least 450 MHz on bus. */
-	[6] = BW_MBPS(3936), /* At least 492 MHz on bus. */
+	[6] = BW_MBPS(4256), /* At least 492 MHz on bus. */ //3936
 };
 
 static struct msm_bus_scale_pdata bus_scale_data __initdata = {
@@ -112,6 +112,7 @@ static struct l2_level l2_freq_tbl[] __initdata = {
 	[16] = { { 1242000, HFPLL, 1, 0x2E }, 1150000, 1150000, 6 },
 	[17] = { { 1296000, HFPLL, 1, 0x30 }, 1150000, 1150000, 6 },
 	[18] = { { 1350000, HFPLL, 1, 0x32 }, 1150000, 1150000, 6 },
+	[19] = { { 1404000, HFPLL, 1, 0x34 }, 1150000, 1150000, 6 },
 	{ }
 };
 
@@ -140,6 +141,9 @@ static struct acpu_level acpu_freq_tbl_slow[] __initdata = {
 	{ 0, {  1404000, HFPLL, 1, 0x34 }, L2(18), 1237500, AVS(0x400015) },
 	{ 1, {  1458000, HFPLL, 1, 0x36 }, L2(18), 1237500, AVS(0x100018) },
 	{ 1, {  1512000, HFPLL, 1, 0x38 }, L2(18), 1250000, AVS(0x400012) },
+	{ 1, {  1620000, HFPLL, 1, 0x3A }, L2(19), 1250000, AVS(0x400012) },
+	{ 1, {  1728000, HFPLL, 1, 0x3C }, L2(19), 1300000, AVS(0x400012) },
+	{ 1, {  1804800, HFPLL, 1, 0x3E }, L2(19), 1300000, AVS(0x400012) },
 	{ 0, { 0 } }
 };
 
@@ -166,6 +170,9 @@ static struct acpu_level acpu_freq_tbl_nom[] __initdata = {
 	{ 0, {  1404000, HFPLL, 1, 0x34 }, L2(18), 1187500, AVS(0x400015) },
 	{ 1, {  1458000, HFPLL, 1, 0x36 }, L2(18), 1187500, AVS(0x100018) },
 	{ 1, {  1512000, HFPLL, 1, 0x38 }, L2(18), 1200000, AVS(0x400012) },
+	{ 1, {  1620000, HFPLL, 1, 0x3A }, L2(19), 1250000, AVS(0x400012) },
+	{ 1, {  1728000, HFPLL, 1, 0x3C }, L2(19), 1300000, AVS(0x400012) },
+	{ 1, {  1804800, HFPLL, 1, 0x3E }, L2(19), 1300000, AVS(0x400012) },
 	{ 0, { 0 } }
 };
 
@@ -192,6 +199,9 @@ static struct acpu_level acpu_freq_tbl_fast[] __initdata = {
 	{ 0, {  1404000, HFPLL, 1, 0x34 }, L2(18), 1137500, AVS(0x400012) },
 	{ 1, {  1458000, HFPLL, 1, 0x36 }, L2(18), 1137500, AVS(0x400012) },
 	{ 1, {  1512000, HFPLL, 1, 0x38 }, L2(18), 1150000, AVS(0x400012) },
+	{ 1, {  1620000, HFPLL, 1, 0x3A }, L2(19), 1250000, AVS(0x400012) },
+	{ 1, {  1728000, HFPLL, 1, 0x3C }, L2(19), 1300000, AVS(0x400012) },
+	{ 1, {  1804800, HFPLL, 1, 0x3E }, L2(19), 1300000, AVS(0x400012) },
 	{ 0, { 0 } }
 };
 
